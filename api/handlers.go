@@ -1,6 +1,7 @@
 package api
 
 import (
+	"strings"
 	"os"
 	"bufio"
 	"encoding/json"
@@ -27,20 +28,14 @@ func (m *MovieHandler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 	reader := bufio.NewReader(os.Stdin)
 	fmt.Print("nome filme: ")
 	movieName, _ = reader.ReadString('\n')
+	movieName = strings.TrimSuffix(movieName, "\n")
+
 	fmt.Print("ano filme: ")
-	movieYear, _= reader.ReadString('\n')
+	movieYear, _ = reader.ReadString('\n')
+	movieYear = strings.TrimSuffix(movieYear, "\n")
 	fmt.Print("nacionalidade: ")
 	movieNac, _ = reader.ReadString('\n')
-
-
-	// scanner := bufio.NewScanner(os.Stdin)
-	// scanner.Scan() 
-	// fmt.Println(scanner.Text())
-	
-
-	// if scanner.Err() != nil {
-	//     // handle error.
-	// }
+	movieNac = strings.TrimSuffix(movieNac, "\n")
 
 	movie := &movies.Movie{
 		Name: movieName,
